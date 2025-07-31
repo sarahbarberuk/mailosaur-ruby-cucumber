@@ -1,0 +1,32 @@
+require 'mailosaur'
+require 'dotenv/load'
+require 'rspec/expectations'
+include RSpec::Matchers
+
+# Instance variables to persist between steps
+@client = nil
+@message = nil
+@server_id = nil
+
+Given('the API key is set for Mailosaur') do
+  api_key = ENV['MAILOSAUR_API_KEY']
+  @server_id = ENV['MAILOSAUR_SERVER_ID']
+  expect(api_key).not_to be_nil, 'MAILOSAUR_API_KEY must be set'
+  expect(@server_id).not_to be_nil, 'MAILOSAUR_SERVER_ID must be set'
+  @client = Mailosaur::MailosaurClient.new(api_key)
+end
+
+When('I call the Mailosaur API') do
+  expect(@client).not_to be_nil
+end
+
+When('I search for the password reset email I sent earlier') do
+  criteria = Mailosaur::Models::SearchCriteria.new
+  criteria.subject = 'Password reset'
+  @message = @client.messages.get(@server_id, criteria)
+end
+
+Then('that email should be sent from {string} at {string}') do |name, email|
+  expect(@message.from.first.name).to eq(name)
+  expect(@message.from.first.email).to eq(email)
+end
