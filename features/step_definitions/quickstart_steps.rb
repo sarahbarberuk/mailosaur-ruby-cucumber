@@ -1,23 +1,22 @@
 require 'mailosaur'
-require 'dotenv'
+require 'dotenv/load'
 require 'rspec/expectations'
 
-Dotenv.load
-
-api_key = ENV['MAILOSAUR_API_KEY']
-client = nil
-email_servers = []
+@client = nil
+@email_servers = nil
 
 Given('a Mailosaur API key is configured') do
-  expect(api_key).not_to be_nil
+  @api_key = ENV['MAILOSAUR_API_KEY']
+  expect(@api_key).not_to be_nil
+  expect(@api_key.strip).not_to be_empty, 'MAILOSAUR_API_KEY must not be empty'
 end
 
 When('I connect to the Mailosaur API') do
-  client = Mailosaur::MailosaurClient.new(api_key)
-  email_servers.replace(client.servers.list.items)
+  @client = Mailosaur::MailosaurClient.new(@api_key)
+  @email_servers = @client.servers.list.items
 end
 
 Then('I should see at least one inbox') do
-  expect(email_servers).not_to be_nil
-  expect(email_servers).not_to be_empty
+  expect(@email_servers).not_to be_nil
+  expect(@email_servers).not_to be_empty
 end

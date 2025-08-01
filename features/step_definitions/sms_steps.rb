@@ -11,9 +11,12 @@ Given("the Mailosaur API key and server ID are set") do
   api_key = ENV['MAILOSAUR_API_KEY']
   @server_id = ENV['MAILOSAUR_SERVER_ID']
 
-  expect(api_key).not_to be_nil, "MAILOSAUR_API_KEY must be set"
-  expect(@server_id).not_to be_nil, "MAILOSAUR_SERVER_ID must be set"
+  expect(api_key).not_to be_nil, 'MAILOSAUR_API_KEY must be set'
+  expect(api_key.strip).not_to be_empty, 'MAILOSAUR_API_KEY must not be empty'
 
+  expect(@server_id).not_to be_nil, 'MAILOSAUR_SERVER_ID must be set'
+  expect(@server_id.strip).not_to be_empty, 'MAILOSAUR_SERVER_ID must not be empty'
+  
   @client = Mailosaur::MailosaurClient.new(api_key)
 end
 
