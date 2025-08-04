@@ -7,7 +7,7 @@ include RSpec::Matchers
 @message = nil
 @server_id = nil
 
-Given("the Mailosaur API key and server ID are set") do
+Given("Mailosaur API client is setup") do
   api_key = ENV['MAILOSAUR_API_KEY']
   @server_id = ENV['MAILOSAUR_SERVER_ID']
 
@@ -18,9 +18,6 @@ Given("the Mailosaur API key and server ID are set") do
   expect(@server_id.strip).not_to be_empty, 'MAILOSAUR_SERVER_ID must not be empty'
   
   @client = Mailosaur::MailosaurClient.new(api_key)
-end
-
-When("I call Mailosaur's API") do
   expect(@client).not_to be_nil
 end
 
