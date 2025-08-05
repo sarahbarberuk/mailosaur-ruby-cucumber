@@ -19,7 +19,6 @@ Given('the Mailosaur API client is setup') do
   expect(@server_id.strip).not_to be_empty, 'MAILOSAUR_SERVER_ID must not be empty'
 
   @client = Mailosaur::MailosaurClient.new(api_key)
-  expect(@client).not_to be_nil
 end
 
 When('I search for the {string} email I sent earlier') do |subject|
