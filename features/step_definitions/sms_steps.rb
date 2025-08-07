@@ -18,6 +18,7 @@ Given("the Mailosaur API key and server ID are set for SMS test") do
   expect(@server_id.strip).not_to be_empty, 'MAILOSAUR_SERVER_ID must not be empty'
   
   @client = Mailosaur::MailosaurClient.new(api_key)
+  expect(@client).not_to be_nil
 end
 
 When("I search for an SMS sent to {string}") do |phone_number|
