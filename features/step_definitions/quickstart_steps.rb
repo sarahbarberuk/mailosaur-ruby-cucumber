@@ -5,7 +5,7 @@ require 'rspec/expectations'
 @client = nil
 @email_servers = nil
 
-Given('a Mailosaur API key is configured') do
+Given('the Mailosaur API client is setup') do
   @api_key = ENV['MAILOSAUR_API_KEY']
   expect(@api_key).not_to be_nil
   expect(@api_key.strip).not_to be_empty, 'MAILOSAUR_API_KEY must not be empty'

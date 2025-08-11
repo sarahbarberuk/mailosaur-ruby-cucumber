@@ -7,7 +7,7 @@ include RSpec::Matchers
 @message = nil
 @server_id = nil
 
-Given("Mailosaur API client is setup") do
+Given("the Mailosaur API client is setup") do
   api_key = ENV['MAILOSAUR_API_KEY']
   @server_id = ENV['MAILOSAUR_SERVER_ID']
 
