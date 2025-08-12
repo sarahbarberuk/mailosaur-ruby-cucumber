@@ -8,7 +8,7 @@ include RSpec::Matchers
 @message = nil
 @server_id = nil
 
-Given('the Mailosaur API client is setup') do
+Given('the Mailosaur API key and server ID are set for email test') do
   api_key = ENV['MAILOSAUR_API_KEY']
   @server_id = ENV['MAILOSAUR_SERVER_ID']
 
@@ -26,6 +26,7 @@ When('I search for the {string} email I sent earlier') do |subject|
   criteria = Mailosaur::Models::SearchCriteria.new
   criteria.subject = subject
   @message = @client.messages.get(@server_id, criteria)
+  expect(@message).not_to be_nil
 end
 
 Then('that email should be sent from {string} at {string}') do |name, email|
